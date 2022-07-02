@@ -5,15 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To Do List</title>
+    <script src="./vendors/jquery-3.6.0.min.js"></script>
+    <script src="./scripts/client.js"></script>
+    <link rel="stylesheet" href="./style/styles.css">
 </head>
 <body>
     <h1>Create task:</h1>
-    <label for="task">Thing to do: </label>
+    <label for="task">Todo Note: </label>
     <input type="text" class="task" name="task" placeholder="Task" />
 
     <label for="importance">Level of importance (1-10)</label>
     <input type="number" class="importance" placeholder="1 = not Important, 10 = must complete" />
     <button class="submit">Submit</button>
     <H2>Task Manager</H2>
+    
+    <table>
+        <thead>
+            <th>Id</th>
+            <th>Note</th>
+            <th>Importance</th>
+            <th>Is It Complete</th>
+        </thead>
+        <tbody class="task-container">
+<!-- To Do Items will append here -->
+        </tbody>
+    </table>
 </body>
 </html>
