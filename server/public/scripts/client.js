@@ -58,7 +58,7 @@ function addTask() {
     console.log('Submit button has been clicked');
     let taskToAdd = {};
     taskToAdd.task = $('.taskInput').val();
-    taskToAdd.importance = $('.importanceInput');
+    taskToAdd.importance = $('.importanceInput').val();
     console.log('checking that current object is taking in the 2 inputs', taskToAdd);
 
     $.ajax({
