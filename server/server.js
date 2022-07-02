@@ -6,7 +6,7 @@ const app = express();
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-app.use('/', taskRouter);
+app.use('/todo', taskRouter);
 
 // Serve back static files by default
 app.use(express.static('server/public'))
