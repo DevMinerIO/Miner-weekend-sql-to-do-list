@@ -1,9 +1,11 @@
 $(document).ready(function() {
     console.log('Jquery and js working');
     clickHandlers();
+    getTasks();
 })
 
 function clickHandlers() {
+    //$('.submit').on('click', );
 
 }
 
