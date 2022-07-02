@@ -5,7 +5,7 @@ $(document).ready(function() {
 })
 
 function clickHandlers() {
-    //$('.submit').on('click', );
+    $('.submit').on('click', addTask);
 
 }
 
@@ -52,4 +52,24 @@ function render(todoList) {
         </tr>
         `)
     }
+}
+// add button to add task to the sql
+function addTask() {
+    console.log('Submit button has been clicked');
+    let taskToAdd = {};
+    taskToAdd.task = $('.taskInput').val();
+    taskToAdd.importance = $('.importanceInput');
+    console.log('checking that current object is taking in the 2 inputs', taskToAdd);
+
+    $.ajax({
+        method: 'POST',
+        url: '/todo',
+        data: taskToAdd,
+    }).then(function(response) {
+        console.log('Response from server.', response);
+        getTasks();
+    }).catch(function(error) {
+        console.log('Error in POST', error)
+        alert('Unable to add new task From addTask function in CLIENT');
+    });
 }
