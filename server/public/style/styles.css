@@ -1,0 +1,7 @@
+.taskRow[data-isComplete=true] {
+    background-color: lightgreen;
+}
+
+.taskRow[data-isComplete=false] {
+    background-color: lightcoral;
+}

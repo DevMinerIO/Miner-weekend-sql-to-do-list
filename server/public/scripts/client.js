@@ -6,7 +6,7 @@ $(document).ready(function() {
 
 function clickHandlers() {
     $('.submit').on('click', addTask);
-
+    $('.task-container').on('click', '.completeButton', markAsComplete);
 }
 
 function getTasks() {
@@ -31,7 +31,7 @@ function render(todoList) {
         let currentTask = todoList[i];
 
         $('.task-container').append(`
-        <tr>
+        <tr data-isComplete="${currentTask.isComplete}" class="taskRow">
             <td>${currentTask.id}</td>
             <td>${currentTask.task}</td>
             <td>${currentTask.importance}</td>
@@ -39,13 +39,13 @@ function render(todoList) {
             <td>
                 <button
                 class="button completeButton"
-                data-id=${currentTask.id}
-                data-isComplete= ${currentTask.isComplete}>Complete
+                data-status="${currentTask.isComplete}" data-id="${currentTask.id}"
+                >Complete
                 </button>
             </td>
             <td>
                 <button class="button deleteButton"
-                data-id= ${currentTask.id}
+                data-id= "${currentTask.id}"
                 >Delete
                 </button>
             </td>
@@ -72,4 +72,26 @@ function addTask() {
         console.log('Error in POST', error)
         alert('Unable to add new task From addTask function in CLIENT');
     });
+}
+
+
+// function to add a class and change the color of tasks on the DOM based on "isComplete" being true or false.
+function markAsComplete() {
+    let taskId = $(this).data('id');
+    let taskStatus = $(this).data('status');
+    console.log('task ID is:', taskId);
+    // Boolean 
+    console.log('boolean being sent from the client is:', taskStatus);
+
+    $.ajax({
+        method: 'PUT',
+        url: `/todo/${taskId}`,
+        data:{status: taskStatus}
+    })
+    .then(function() {
+        getTasks();
+    })
+    .catch(function(error) {
+        alert('ERROR on markAsComplete Function:', error);
+    })
 }
