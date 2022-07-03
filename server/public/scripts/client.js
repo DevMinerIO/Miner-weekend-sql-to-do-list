@@ -6,7 +6,7 @@ $(document).ready(function() {
 
 function clickHandlers() {
     $('.submit').on('click', addTask);
-
+    $('.task-container').on('click', '.completeButton', markAsComplete);
 }
 
 function getTasks() {
@@ -72,4 +72,25 @@ function addTask() {
         console.log('Error in POST', error)
         alert('Unable to add new task From addTask function in CLIENT');
     });
+}
+
+
+// function to add a class and change the color of tasks on the DOM based on "isComplete" being true or false.
+function markAsComplete() {
+    let taskId = $(this).data('id');
+    // ! should flip the boolean to the opposite of what it was. Then we will send that to the server. 
+    let flipComplete = $(this).data('isComplete');
+    console.log('boolean should be flipped', flipComplete);
+
+    $.ajax({
+        method: 'PUT',
+        url: `/todo/${taskId}`,
+        data:{isComplete: flipComplete}
+    })
+    .then(function() {
+        getTasks();
+    })
+    .catch(function(error) {
+        alert('ERROR on markAsComplete Function:', error);
+    })
 }
