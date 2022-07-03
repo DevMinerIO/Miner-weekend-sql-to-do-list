@@ -95,3 +95,18 @@ function markAsComplete() {
         alert('ERROR on markAsComplete Function:', error);
     })
 }
+
+function deleteTask() {
+    let taskId = $(this).data('id');
+    $.ajax({
+    method: 'DELETE',
+    url: `todo/${taskId}`
+    })
+    .then(function(response) {
+        console.log('It is gone!');
+        getTasks();
+    })
+    .catch(function(error) {
+        alert('Error deleting TASK in client:', error);
+    });
+}
