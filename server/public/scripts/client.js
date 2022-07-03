@@ -7,6 +7,7 @@ $(document).ready(function() {
 function clickHandlers() {
     $('.submit').on('click', addTask);
     $('.task-container').on('click', '.completeButton', markAsComplete);
+    $('.task-container').on('click', '.deleteButton', deleteTask);
 }
 
 function getTasks() {

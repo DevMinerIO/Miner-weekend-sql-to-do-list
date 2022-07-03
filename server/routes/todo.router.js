@@ -57,15 +57,20 @@ router.put('/:id', (req, res) => {
     })
 })
 
-
-
-
-
-
-
-
-
-
+router.delete('/:id', (req, res) => {
+    let reqId = req.params.id;
+    console.log(`DELETE request sent for id, ${reqId}`);
+    let queryText = `DELETE FROM "to-do-list" WHERE id = $1;`;
+    pool.query(queryText, [reqId])
+    .then(() => {
+        console.log('Task deleted!');
+        res.sendStatus(200);
+    })
+    .catch((error) => {
+        console.log(`Error deleting with query ${queryText}: ${error}`);
+        res.sendStatus(500); // good server always responds
+    })
+})
 
 // router export at the bottom
 module.exports = router;
