@@ -7,6 +7,7 @@ $(document).ready(function() {
 function clickHandlers() {
     $('.submit').on('click', addTask);
     $('.task-container').on('click', '.completeButton', markAsComplete);
+    $('.task-container').on('click', '.deleteButton', deleteTask);
 }
 
 function getTasks() {
@@ -94,4 +95,19 @@ function markAsComplete() {
     .catch(function(error) {
         alert('ERROR on markAsComplete Function:', error);
     })
+}
+
+function deleteTask() {
+    let taskId = $(this).data('id');
+    $.ajax({
+    method: 'DELETE',
+    url: `todo/${taskId}`
+    })
+    .then(function(response) {
+        console.log('It is gone!');
+        getTasks();
+    })
+    .catch(function(error) {
+        alert('Error deleting TASK in client:', error);
+    });
 }
