@@ -3,13 +3,14 @@ $(document).ready(function() {
     clickHandlers();
     getTasks();
 })
-
+// click handler where add, complete and delete buttons will be called. 
 function clickHandlers() {
     $('.submit').on('click', addTask);
     $('.task-container').on('click', '.completeButton', markAsComplete);
     $('.task-container').on('click', '.deleteButton', deleteTask);
 }
 
+// gets the tasks and prints them to the DOM. Function also called in add, complete and delete functions
 function getTasks() {
     $.ajax({
         method: 'GET',
@@ -24,10 +25,10 @@ function getTasks() {
     });
 }
 
-// Shows data from SQL to the DOM. Also appends a button for isComplete
+// Show data from SQL to the DOM. Also appends a button for isComplete
 function render(todoList) {
     $('.task-container').empty();
-
+// iterates through each object and appends them to teh DOM on lines 37-54
     for(let i = 0; i< todoList.length; i++) {
         let currentTask = todoList[i];
 
@@ -96,7 +97,8 @@ function markAsComplete() {
         alert('ERROR on markAsComplete Function:', error);
     })
 }
-
+// delete takes in the attribute id from button on line 51 in the append.
+// Sends that id to the server and runs an sql statement to delete WHERE the id is matching. 
 function deleteTask() {
     let taskId = $(this).data('id');
     $.ajax({

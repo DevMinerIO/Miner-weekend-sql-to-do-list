@@ -1,7 +1,33 @@
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+* :not(input, button) {
+    color: white;
+}
+body {
+    background-color: black;
+    text-align: center;
+}
+.taskTable {
+    background-color: grey;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .taskRow[data-isComplete=true] {
-    background-color: lightgreen;
+    background-color: green;
 }
 
 .taskRow[data-isComplete=false] {
     background-color: lightcoral;
+}
+
+th, td {
+    padding: 20px;
+    font-size: 26px;
+}
+button, input {
+    background-color: snow;
+    font-size: 20px;
 }

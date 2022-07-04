@@ -1,7 +1,9 @@
+// boilerplate imports that are needed on all projects
 const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool');
 
+// get request orders by importance. 
 router.get('/', (req, res) => {
     let queryText = 'SELECT * FROM "to-do-list" ORDER BY "importance" DESC;';
     pool.query(queryText).then(result => {
@@ -13,7 +15,7 @@ router.get('/', (req, res) => {
         res.sendStatus(500); 
     });
 })
-
+// post request adds new task. Data is sanitized to keep info from the user on line 21-22
 router.post('/', (req, res) => {
     let newTask = req.body;
     console.log('adding new task in Router POST', newTask);
@@ -28,7 +30,7 @@ router.post('/', (req, res) => {
         res.sendStatus(500);
     });
 })
-
+// put is used to mark the task as complete or incomplete. Switching the vaule of "isComplete"
 router.put('/:id', (req, res) => {
     let taskId = Number(req.params.id);
     let complete = req.body.status;
@@ -37,15 +39,18 @@ router.put('/:id', (req, res) => {
     console.log('value of compareComplete',compareComplete);
     console.log('check to see if id is saved in router', taskId);
     let queryText;
+    // false check to change the "isComplete" value to true
     if(compareComplete === false) {
         queryText = 'UPDATE "to-do-list" SET "isComplete" = true WHERE "id" = $1;';
+    // false check to change the "isComplete" value to false
     }else if (compareComplete === true) {
         queryText = 'UPDATE "to-do-list" SET "isComplete" = false WHERE "id" = $1;';
     }
     else {
         res.sendStatus(500);
         console.log('Router put did not work properly.');
-    // remember to break out of request if 
+    // remember to break out of request if there is an error. so the pool query doesn't run. 
+        return;
     }
     pool.query(queryText, [taskId])
     .then((dbResponse) => {
@@ -57,6 +62,7 @@ router.put('/:id', (req, res) => {
     })
 })
 
+// deletes by id on line 68 WHERE id is matching
 router.delete('/:id', (req, res) => {
     let reqId = req.params.id;
     console.log(`DELETE request sent for id, ${reqId}`);
